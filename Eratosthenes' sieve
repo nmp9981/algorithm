@@ -1,0 +1,16 @@
+#에라토스네의 체
+def prime(n):
+  li = [True]*(n+1)
+  for i in range(2, n+1):
+    for j in range(i*2, n+1, i):
+      li[j] = False
+  #소수 출력
+  for k in range(2, len(li)):
+    if li[k] == True:
+      print(k)
+  return li
+
+#소수의 개수
+n = int(input())
+li = prime(n)
+print(sum(li) - 2)#0,1제외
