@@ -1,0 +1,12 @@
+#탐색알고리즘 (보초법)
+def search(li, n):
+  li.append(n)#검색할 값을 가장 끝에 위치
+  k = len(li)
+  for i in range(0,k-1):#0~k-2번까지 검색한 값이 있는지 탐색
+    if li[i] == n:
+      print(i+1)
+      break
+
+li = list(map(int,input().split()))#가로로 입력
+n = int(input())#검색
+search(li, n)
