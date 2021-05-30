@@ -1,0 +1,24 @@
+#링 버퍼의 활용
+#원하는 개수만큼 입력받아 마지막 n개를 저장
+n = int(input())
+a = [None]*n
+
+cnt = 0#정수를 입력받은 개수
+#정수를 입력
+while True:
+  count = cnt % n
+  a[count] = int(input((f'{cnt + 1}번째 정수: ')))
+  cnt += 1
+
+  retry = input("계속? ")
+  if retry in {'n'}:
+    break
+
+#링 버퍼 출력(큐)
+i = cnt - n#시작 지점
+if i < 0:
+  i == 0
+
+while i < cnt:
+  print(a[i % n])
+  i += 1
