@@ -1,0 +1,50 @@
+import sys
+
+#Stack
+#push
+def push(x):
+  stack_li.append(x)
+  return stack_li
+#pop
+def pop(stack_li):
+  if len(stack_li) == 0:
+    print(-1)
+  else:
+    print(stack_li[len(stack_li)-1])
+    stack_li = stack_li[0:len(stack_li)-1]
+  return stack_li
+#size
+def size(stack_li):
+  len_stack = len(stack_li)
+  print(len_stack)
+#empty
+def empty(stack_li):
+  if len(stack_li) == 0:
+    print(1)
+  else:
+    print(0)
+#top
+def top(stack_li):
+  if len(stack_li) == 0:
+    print(-1)
+  else:
+    print(stack_li[len(stack_li)-1])
+
+#입력
+t = int(input())
+stack_li = []
+#명령문 입력
+for i in range(0,t):
+  li = list(map(str,sys.stdin.readline().split()))
+  com = li[0]
+  if len(li) == 2:
+    stack_li = push(int(li[1]))
+  else:
+    if com == 'pop':
+      stack_li = pop(stack_li)
+    elif com == 'size':
+      size(stack_li)
+    elif com == 'empty':
+      empty(stack_li)
+    elif com == 'top':
+      top(stack_li)
