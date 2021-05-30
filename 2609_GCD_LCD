@@ -1,0 +1,25 @@
+#최대공약수
+def div(a,b):
+  max_div = 1#최대공약수
+  quo = 2#나누는 수
+  max_quo = min(a,b)
+  while quo <= max_quo:
+    if a % quo == 0 and b % quo == 0:#공약수 판정
+      a /= quo
+      b /= quo
+      max_div *= quo#공약수를 곱함
+    else:
+      quo += 1
+
+  return max_div
+
+def prod(a,b,div_ab):#L=G*a*b
+  a /= div_ab
+  b /= div_ab
+  min_pro = round(a * b * div_ab)
+  print(min_pro)
+
+a,b = map(int, input().split())
+div_ab = div(a,b)
+print(div_ab)
+prod(a,b,div_ab)
