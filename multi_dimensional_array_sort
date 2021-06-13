@@ -1,0 +1,5 @@
+line = sorted(line, key=lambda x:x[0])#가장 왼쪽열 기준 정렬
+c = list(map(lambda x: x[1],line))#1번열만 리스트로 생성
+arr.sort(key= lambda x: (-x[1],x[2],-x[3],x[0]))#여러기준(-는 내림차순)
+list.sort()    #그냥 sort는 사전순으로 정렬해줌.
+list.sort(key=lambda x:len(x)) # 길이순으로 정렬해줌.
