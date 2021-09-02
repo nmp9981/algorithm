@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <cctype>
+#include <algorithm>
+#include <vector>
+#include <stack> //stack생성 헤더
+
+using namespace std;//이름공간 선언
+
+int main() {
+  cin.tie(0); //실행속도 향상
+  //스택생성
+  stack<int> s;
+  //push
+  s.push(1);
+  s.push(2);
+  s.push(3);
+
+  //top(확인만, 총 길이는 그대로)
+  cout<<s.top()<<endl;
+
+  //pop
+  s.pop();//3삭제
+  s.pop();//2삭제
+
+  //size
+  cout<<s.size()<<endl;
+
+  //enpty(비었는가?)
+  cout<<(s.empty()? "yes":"no")<<endl;
+
+  return 0;
+}
