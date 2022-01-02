@@ -1,0 +1,99 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef pair<int,int> dot;
+typedef pair<int,dot> weight;
+
+dot a,b;
+priority_queue<weight, vector<weight>, greater<weight>> pq;
+vector<dot> ans;
+
+set<dot> closed;
+int scoreF[101][101];
+int scoreG[101][101];
+int scoreH[101][101];
+
+void h(dot end, dot next){//맨해튼 거리 사용
+    int x = abs(end.first-next.first);
+    int y = abs(end.second-next.second);
+    scoreH[next.second][next.first] = (x+y)*10;
+}
+
+void g(dot now, dot next, int plus){
+    scoreG[next.second][next.first] = scoreF[now.second][now.first]+plus;
+}
+
+void f(dot next){
+    scoreF[next.second][next.first] = scoreG[next.second][next.first]+scoreH[next.second][next.first];
+}
+
+void a_star(char map[101][101], int map_x, int map_y, dot a,dot b){
+    if(map_x<1 || map_x>100 || map_y<1 || map_y>100){
+        printf("범위 초과\n");
+        return;
+    }
+    
+    memset(scoreF,9999,sizeof(scoreF));
+    memset(scoreG,9999,sizeof(scoreG));
+    memset(scoreH,9999,sizeof(scoreH));
+    
+    pq.push(make_pair(0,a));
+    ans.push_back(a);//시작노드지정
+    
+    for(int i=0;i<map_y;i++){
+        for(int j=0;j<map_x;j++){
+            if(map[i][j]=='$') closed.insert(make_pair(j,i));
+        }
+    }
+    
+    dot now;//현재 노드 지정
+    while(ans.back() != b){
+        dot now = pq.top().second;
+        closed.insert(now);//현재 노드를 닫힌 목록에 삽입
+        pq.pop();
+        
+        pq = priority_queue<weight,vector<weight>,greater<weight>>();//우선순위 큐 초기화
+        ans.push_back(now);
+        
+        memset(scoreG,9999,sizeof(scoreG));
+        memset(scoreH,9999,sizeof(scoreH));
+        
+        int dx[8] = {0,1,1,1,0,-1,-1,-1};
+        int dy[8] = {1,1,0,-1,-1,-1,0,1};
+        
+        for(int i=0;i<8;i++){
+            int x = now.first + dx[i],y = now.second + dy[i];
+            if(x<0 || y<0) continue;
+            
+            auto p = closed.find(make_pair(x,y));
+            if(p!=closed.end()) continue;
+            
+            h(b, make_pair(x,y));
+            if(dx[i]==0 || dy[i]==0) g(now,make_pair(x,y),10);
+            else g(now,make_pair(x,y),14);
+            
+            memset(scoreF,9999,sizeof(scoreF));
+            f(make_pair(x,y));
+            
+            weight pushed = make_pair(scoreF[y][x],make_pair(x,y));
+            pq.push(pushed);
+        }
+    }
+    for(int i=0;i<ans.size();i++){
+        printf("%d %d\n",ans[i].first,ans[i].second);
+    }
+}
+
+int main(){
+    const int map_x = 8;//가로 칸 수
+    const int map_y = 4;//세로 칸 수
+    char map[101][101]={//지도(무조건 101*101로 선언해야 한다.)
+        "$**$****",
+        "*$***$**",
+        "*****$**",
+        "*****$**"
+    };
+    dot a = make_pair(0,3),b = make_pair(7,0);
+    a_star(map,map_x,map_y,a,b);
+    return 0;
+}
